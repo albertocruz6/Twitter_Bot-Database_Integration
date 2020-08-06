@@ -59,13 +59,14 @@ def request_convo_thread_interaction(tweet, api, db_cur, responses_count):
         # cooldown
         if responses_count == 5:
             print('Waiting.....(slowing down boi)')
-            time.sleep(120)
+            time.sleep(90)
             responses_count = 0
         # determine if there has been any tweets from the user
         user_tweets_q = """
                         SELECT twitter_message_id
                         FROM saved_messages
                         WHERE sender_id = %s;
+                        ORDER BY twitter_message_id DESC
         """
         db_cur.execute(user_tweets_q, (id,))
         user_tweets = db_cur.fetchall()
@@ -74,7 +75,7 @@ def request_convo_thread_interaction(tweet, api, db_cur, responses_count):
             if len(user_tweets) == 1:
                 api.update_status("I think this is your first interaction with me! 😅", in_reply_to_status_id=tweet.id)
             else:
-                api.update_status("Sure! Creating thread of our past interactions!", in_reply_to_status_id=tweet.id)
+                api.update_status("Sure! Creating thread of our past interactions! @" + handle , in_reply_to_status_id=tweet.id)
             responses_count+=1
             # go through all the tweets and connect them
             times = 0
@@ -94,5 +95,7 @@ def request_convo_thread_interaction(tweet, api, db_cur, responses_count):
                 # tweet the result
                 api.update_status(str(times) + " " + target_final_url, in_reply_to_status_id=last_bot_tweet_id)
                 responses_count += 1
-                time.sleep(15)
-
+                time.sleep(10)
+            # set true to not trigger another round of answers
+            upd_q = "UPDATE saved_messages SET replied_by_bot = true WHERE twitter_message_id = %s"
+            db_cur.execute(upd_q, (tweet.id,))
