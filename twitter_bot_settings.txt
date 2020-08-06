@@ -1,0 +1,11 @@
+gmail:
+theAllSeeingbot@gmail.com
+s3E1nG_ev3RYTHING a t m
+twitter:
+@AllSeei97900337
+pass -> s3E1nG_ev3RYTHING a t m 3 2 1
+api key: jsXACC0IeKkmntM2FOvqP5cCm
+api secret key: NBd21TbRBnugK1Z6DAW0LwQRYC8dd5bUtPCvT1A7rqd1OJv3Vw
+bearer token: AAAAAAAAAAAAAAAAAAAAAB83GgEAAAAAcpoXpPw4bp1DplJUYBbjX1i0P7g%3DOdGmaY5X3I34qjxS2PQEXxPWiJQAZdA8eJfarrcIiRrHJggZmQ
+acccess token = 1290503301130313730-azKiPeJBv4gXDo2VMA9oSS4noabJb8
+access token secret = mAca2fCc6mwvDoonz1czbzMwlpPphdcuMcwDXostYgQhe
