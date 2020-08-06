@@ -58,6 +58,8 @@ while stored_messages <= all_messages:
             # # # # # # # # # # # # # # # # # # # # # #
             # BOT responds to '?'
             first_time_interaction(tweet, api, db_cur, talked_prev, responses_count)
+            # BOT reponds to 'convo_thread?'
+            request_convo_thread_interaction(tweet, api, db_cur, responses_count)
             # # # # # # # # # # # # # # # # # # # # # #
             # VALUE CHECKS
             # Final temporary checks
