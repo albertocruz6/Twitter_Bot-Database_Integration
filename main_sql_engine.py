@@ -64,7 +64,7 @@ while stored_messages <= all_messages:
             # BOT responds to '?'
             # we check if the text is asking the bot
             text = tweet.text
-            #search for a '?' sign
+            # search for a '?' sign
             searching = text.split()
             found_one_alone = False
             for word in searching:
