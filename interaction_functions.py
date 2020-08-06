@@ -35,7 +35,8 @@ def first_time_interaction(tweet, api, db_cur, talked_prev, responses_count):
 
 
 def request_convo_thread_interaction(tweet, api, db_cur, responses_count):
-    # if prompted the bot ill return with all the available tweets in which the user in question has interacted with the bot!
+    # if prompted the bot ill return with all the available tweets in which the user in question has interacted with
+    # the bot!
     id: int = tweet.user.id
     username: str = tweet.user.name
     handle: str = tweet.user.screen_name
@@ -70,11 +71,15 @@ def request_convo_thread_interaction(tweet, api, db_cur, responses_count):
         user_tweets = db_cur.fetchall()
         if len(user_tweets) != 0:
             #commented for now
-            api.update_status("Sure! Creating thread of our past interactions!", in_reply_to_status_id=tweet.id)
+            if len(user_tweets) == 1:
+                api.update_status("I think this is your first interaction with me! 😅", in_reply_to_status_id=tweet.id)
+            else:
+                api.update_status("Sure! Creating thread of our past interactions!", in_reply_to_status_id=tweet.id)
             responses_count+=1
             # go through all the tweets and connect them
             times = 0
             for interaction in user_tweets:
+                times+=1
                 # check if cooldown is needed
                 if responses_count == 5:
                     print('Waiting.....(slowing down boi)')
@@ -89,3 +94,5 @@ def request_convo_thread_interaction(tweet, api, db_cur, responses_count):
                 # tweet the result
                 api.update_status(str(times) + " " + target_final_url, in_reply_to_status_id=last_bot_tweet_id)
                 responses_count += 1
+                time.sleep(15)
+
