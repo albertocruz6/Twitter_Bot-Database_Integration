@@ -1,0 +1,97 @@
+ Code being removed but stored for further reference if needed
+
+ # divided in two parts: the bot's tweets and the tweets on the different existing threads
+            # tweet_id = t.id
+            # # 1. we get the existing tweet id's to determine if the should be inserted in databases
+            # cur.execute("SELECT twitter_message_id FROM saved_messages")
+            # message_ids = cur.fetchall()
+            # cur.execute("SELECT twitter_message_id FROM saved_messages")
+            # if (tweet_id,) not in message_ids:
+            #     if len(t.text) > 0:
+            #         insert_mes_q = """INSERT INTO saved_messages(twitter_message_id, sender_id, has_text, message_contents)
+            #                         VALUES(%s,%s,%s,%s)"""
+            #         cur.execute(insert_mes_q, (t.id,t.user.id,True,t.text))
+            #     else:
+            #         insert_mes_q = """INSERT INTO saved_messages(twitter_message_id, sender_id)
+            #                                     VALUES(%s,%s)"""
+            #         cur.execute(insert_mes_q, (t.id, t.user.id))
+            #     # if it's also a reply
+            #     if t.in_reply_to_status_id is not None:
+            #         replying_message_id = t.in_reply_to_status_id
+            #         replying_to_id = t.in_reply_to_user_id
+            #         # if has text
+            #         if len(t.text) > 0:
+            #             insert_mes_q = """INSERT INTO saved_replies(twitter_message_id, parent_message_id, sender_id, receiver_id, has_text, message_contents)
+            #                                     VALUES(%s,%s,%s,%s,%s,%s)"""
+            #             cur.execute(insert_mes_q, (t.id, replying_message_id, t.user.id, replying_to_id, True, t.text))
+            #         else:
+            #             insert_mes_q = """INSERT INTO saved_replies(twitter_message_id, parent_message_id, sender_id, receiver_id)
+            #                                                     VALUES(%s,%s,%s,%s)"""
+            #             cur.execute(insert_mes_q, (t.id, replying_message_id, t.user.id, replying_to_id))
+
+
+########################
+ # id :int = t.user.id
+            # username :str = t.user.name
+            # handle :str = t.user.screen_name
+            # # bool confirming that we talked or not before
+            #
+            # # check query to see if id exists
+            # cur.execute("SELECT twitter_user_id FROM users")
+            # ch_q = cur.fetchall()
+            # if len(ch_q) == 0 or (id,) not in ch_q:
+            #     new_vals = (id,username,handle)
+            #     insert_q = """
+            #             INSERT INTO users(twitter_user_id,username,curr_handle)
+            #             VALUES (%s,%s,%s)
+            #             """
+            #     cur.execute(insert_q, new_vals)
+            # # if it exists, confirm all info of known users
+            # else:
+            #     # confirming users
+            #     talked_prev = True
+            #     call_q = "SELECT username,curr_handle FROM users WHERE twitter_user_id = %s"
+            #     cur.execute(call_q, [id])
+            #     confirm_q = cur.fetchall()
+            #     for us in confirm_q:
+            #         if username != us[0]:
+            #             upd_q = "UPDATE users SET username = %s WHERE twitter_user_id = %s"
+            #             cur.execute(upd_q, (username, id))
+            #         if handle != us[1]:
+            #             upd_q = "UPDATE users SET curr_handle = %s WHERE twitter_user_id = %s"
+            #             cur.execute(upd_q, (handle, id))
+########################
+# found_one_alone = False
+            # search for a '?' sign
+            # searching = text.split()
+            # for word in searching:
+            #     if word.startswith('@'):
+            #         continue
+            #     if word == '?':
+            #         found_one_alone = True
+
+
+ ########################
+ # found_one_alone = find_char_keyword(tweet.text, '?')
+            # # determine if it has not responded to the tweet
+            # need_to_respond_q = """
+            #                     SELECT replied_by_bot
+            #                     FROM saved_messages
+            #                     WHERE twitter_message_id = %s;
+            #     """
+            # db_cur.execute(need_to_respond_q, (tweet.id,))
+            # has_responded = db_cur.fetchall()[0][0]
+            #
+            # if found_one_alone and not has_responded:
+            #     # cooldown
+            #     if responses_count == 5:
+            #         print('Waiting.....(slowing down boi)')
+            #         time.sleep(30)
+            #         responses_count = 0
+            #     if talked_prev:
+            #         api.update_status('@' + handle + " We have interacted before! 😊 :DDD", in_reply_to_status_id=tweet.id)
+            #     else:
+            #         api.update_status('@' + handle + " We haven't interacted before... Hello! :DDD", in_reply_to_status_id=tweet.id)
+            #     upd_q = "UPDATE saved_messages SET replied_by_bot = true WHERE twitter_message_id = %s"
+            #     db_cur.execute(upd_q, (tweet.id,))
+            #     responses_count += 1

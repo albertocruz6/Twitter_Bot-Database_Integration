@@ -66,3 +66,16 @@ def engine_tweetBot_store_user(db_cur, id, username, handle):
         return True
 
 #def engine_tweetBot_respond_interaction(tweet, db_cur, tw_api):
+
+
+# General function to find specific keyword
+# Later a design with Reg.Expr must be made to find longer command sequences
+# TEMPORARY
+def find_char_keyword(text, keyword):
+    searching = text.split()
+    for word in searching:
+        if word.startswith('@'):
+            continue
+        if word == keyword:
+            return True
+    return False
