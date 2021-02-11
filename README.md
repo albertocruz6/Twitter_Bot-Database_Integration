@@ -5,3 +5,6 @@ Making use of various components to make a functional twitter bot!
 
 ***September 27 2020 Update!***
 ATM university classes are taking their toll but I started working on my personal page which will include a segment for the bot and its data!
+
+***February 11 2021 Update!***
+Switching DB loactions an engine. Cosidering the use of nginx to support a much more direct access to a domain through the RP-4
